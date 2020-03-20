@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {AllList} from "./pages/AllList";
+import {AddNewRecipe} from "./pages/AddNewRecipe";
+import {Navbar} from "./ui/components/navbar/NavbarComponent";
+import {AlertComponent} from "./ui/components/alert/AlertComponent";
+import {AlertState} from "./context/alert/alertState";
+import {FirebaseState} from "./context/firebase/FirebaseState";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  	<FirebaseState>
+		<AlertState>
+			<BrowserRouter>
+				<Navbar/>
+				<div className="container pt-4">
+					<AlertComponent/>
+					<Switch>
+						<Route path='/' exact component={AllList} />
+						<Route path='/add-new-recipe' component={AddNewRecipe} />
+					</Switch>
+				</div>
+			</BrowserRouter>
+		</AlertState>
+	</FirebaseState>
   );
 }
 
